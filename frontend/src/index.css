@@ -97,6 +97,32 @@
   animation: bounceIn 0.8s ease-out;
 }
 
+/* Custom hover effects */
+.hover-lift {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Gradient text animation */
+.gradient-text {
+  background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* Animate in utilities */
 .animate-in {
   animation-duration: 200ms;
@@ -155,6 +181,26 @@
   color: hsl(var(--primary));
 }
 
+/* Enhanced focus states */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary) / 0.5);
+  outline-offset: 2px;
+}
+
+/* Button press effect */
+button:active {
+  transform: scale(0.98);
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
 /* Glass morphism utilities */
 .glass {
   background: rgba(255, 255, 255, 0.1);
@@ -162,9 +208,58 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.glass-dark {
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced scrollbar styling */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Firefox scrollbar */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
 /* Smooth scroll */
 html {
   scroll-behavior: smooth;
+}
+
+/* Hide browser's built-in password visibility toggle */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+/* For Chrome/Edge Chromium */
+input::-webkit-credentials-auto-fill-button,
+input::-webkit-clear-button,
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  display: none;
+}
+
+/* For Firefox */
+input[type="password"]::-moz-reveal {
+  display: none;
 }
 
 
@@ -179,6 +274,21 @@ body {
   min-width: 320px;
   height: 100vh;
   overflow: hidden;
+  /* Prevent text selection on UI elements */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection in chat messages and input fields */
+.message-content,
+input,
+textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 #root {

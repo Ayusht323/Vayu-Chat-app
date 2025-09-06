@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore'
-import { User, MessageSquare, Mail, Lock, Loader2, Check, X, Info, ChevronDown, ChevronUp } from 'lucide-react'
+import { User, MessageSquare, Mail, Lock, Loader2, Check, X, Info, ChevronDown, ChevronUp, Eye, EyeOff } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import AuthImagePattern from '../components/AuthImagePattern'
 import { checkPasswordStrength, validateEmail } from '../lib/utils'
@@ -16,6 +16,7 @@ const SignUpPage = () => {
   });
   const [passwordStrength, setPasswordStrength] = useState(null);
   const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {signup, isSigningUp} = useAuthStore();
 
@@ -148,14 +149,26 @@ const SignUpPage = () => {
                   <Lock className="size-4 sm:size-5 text-base-content/40 group-focus-within:text-primary group-focus-within:scale-110 transition-all duration-300" />
                 </div>
                 <input 
-                  type="password" 
+                  type={showPassword ? "text" : "password"} 
                   id="password"
                   value={formData.password}
                   onChange={handlePasswordChange}
                   placeholder="••••••••" 
-                  className="input input-bordered w-full pl-10 sm:pl-12 h-11 sm:h-12 text-sm sm:text-base bg-base-100/50 border-base-300 focus:border-primary focus:bg-base-100 hover:border-base-content/20 transition-all duration-300 rounded-xl sm:rounded-2xl shadow-sm focus:shadow-lg focus:shadow-primary/20 hover:shadow-md placeholder:text-base-content/40 focus:placeholder:text-base-content/60"
+                  className="input input-bordered w-full pl-10 sm:pl-12 pr-12 h-11 sm:h-12 text-sm sm:text-base bg-base-100/50 border-base-300 focus:border-primary focus:bg-base-100 hover:border-base-content/20 transition-all duration-300 rounded-xl sm:rounded-2xl shadow-sm focus:shadow-lg focus:shadow-primary/20 hover:shadow-md placeholder:text-base-content/40 focus:placeholder:text-base-content/60"
                   required
                 />
+                {/* Password visibility toggle */}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center z-10 text-base-content/40 hover:text-primary transition-colors duration-200"
+                >
+                  {showPassword ? (
+                    <EyeOff className="size-4 sm:size-5" />
+                  ) : (
+                    <Eye className="size-4 sm:size-5" />
+                  )}
+                </button>
                 {/* Input glow effect */}
                 <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none -z-10 blur-sm"></div>
               </div>
